@@ -1,0 +1,23 @@
+{
+  "name": "build-config",
+  "version": "1.0.0",
+  "description": "My front end build setup",
+  "devDependencies": {
+    "grunt": "0.x.x",
+    "grunt-autoprefixer": "1.0.1",
+    "grunt-contrib-clean": "0.6.x",
+    "grunt-contrib-concat": "0.5.0",
+    "grunt-contrib-copy": "0.4.x",
+    "grunt-contrib-cssmin": "^0.14.0",
+    "grunt-contrib-htmlmin": "^0.5.0",
+    "grunt-contrib-jade": "0.13.0",
+    "grunt-contrib-jshint": "0.10.0",
+    "grunt-contrib-less": "0.11.4",
+    "grunt-contrib-uglify": "0.6.0",
+    "grunt-contrib-watch": "0.6.1",
+    "grunt-express": "1.4.1",
+    "grunt-open": "0.2.3",
+    "load-grunt-tasks": "0.6.0"
+  },
+  "author": "Paul Rose"
+}

@@ -1,0 +1,73 @@
+/* ==========================================================================
+   Variables
+   ========================================================================== */
+
+/* ---------------------------------------------
+      Color
+   --------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+/* ---------------------------------------------
+      Mixins
+   --------------------------------------------- */
+
+
+.transition (@transition: 2000ms) {
+	-webkit-transition: @transition;  
+	-moz-transition:    @transition;
+	-ms-transition:     @transition; 
+	-o-transition:      @transition;  
+}
+
+
+.drop-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
+	-webkit-box-shadow:	@x @y @blur @spread rgba(0, 0, 0, @alpha);
+	-moz-box-shadow:	@x @y @blur @spread rgba(0, 0, 0, @alpha);
+	box-shadow:		@x @y @blur @spread rgba(0, 0, 0, @alpha);
+}
+
+
+.border-radius (@radius: 10px) {
+    -moz-border-radius: @arguments;
+    -o-border-radius: @arguments;
+    -ms-border-radius: @arguments;
+    -khtml-border-radius: @arguments;
+    -webkit-border-radius: @arguments;
+    border-radius: @arguments;
+}
+
+.inset-shadow (@inset: inset, @x: 0, @y: 0, @blur: 5px, @color: #fff) {
+  -o-box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  -ms-box-shadow: @arguments;
+  -khtml-box-shadow: @arguments;
+  -webkit-box-shadow: @arguments;
+  box-shadow: @arguments;
+}
+
+.text-shadow (@x: 0, @y: 0, @blur: 1px, @color: #fff) {
+  -o-text-shadow: @arguments;
+  -moz-text-shadow: @arguments;
+  -ms-text-shadow: @arguments;
+  -khtml-text-shadow: @arguments;
+  -webkit-text-shadow: @arguments;
+  text-shadow: @arguments;
+}
+
+
+.gradient (@startColor: #eee, @endColor: white) {
+  background-color: @startColor;
+  background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+  background: -webkit-linear-gradient(top, @startColor, @endColor);
+  background: -moz-linear-gradient(top, @startColor, @endColor);
+  background: -ms-linear-gradient(top, @startColor, @endColor);
+  background: -o-linear-gradient(top, @startColor, @endColor);
+}
