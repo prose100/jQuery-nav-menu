@@ -6,13 +6,13 @@
       Animated Burger (Leave this CSS Unchanged)
    --------------------------------------------- */
 
-#navToggle { 
+#burger { 
   cursor: pointer;
   padding: 10px 35px 16px 0px;
   float: right;
 }
 
-#navToggle span, #navToggle span:before, #navToggle span:after {
+#burger span, #burger span:before, #burger span:after {
   cursor: pointer;
   border-radius: 1px;
   height: 5px;
@@ -24,29 +24,29 @@
   transition: all 500ms ease-in-out;
 }
 
-#navToggle span:before {
+#burger span:before {
   top: -10px; 
 }
 
-#navToggle span:after {
-    bottom: -10px;
+#burger span:after {
+  bottom: -10px;
 }
 
-#navToggle.active span {
-    background-color: transparent;
+#burger.active span {
+  background-color: transparent;
 }
 
-#navToggle.active span:before, #navToggle.active span:after {
+#burger.active span:before, #burger.active span:after {
   top: 0;
 }
 
-#navToggle.active span:before {
+#burger.active span:before {
   -ms-transform: rotate(45deg); /* IE 9 */
   -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
   transform: rotate(45deg);
 }
 
-#navToggle.active span:after {
+#burger.active span:after {
   -ms-transform: rotate(-45deg); /* IE 9 */
   -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
   transform: rotate(-45deg);

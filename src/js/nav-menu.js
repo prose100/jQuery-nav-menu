@@ -13,12 +13,23 @@
     }
 
     MobileMenu.prototype.init = function() {
-        this.createBurger();
+        var $burger = this.createBurger();
+
+        this.animateBurger($burger);
     }
 
     MobileMenu.prototype.createBurger = function() {
-        var $navToggle = $('<a>').attr('id', 'navToggle').insertAfter($this);
-        var $span = $('<span>').appendTo($navToggle);
+        var $burger = $('<a>').attr('id', 'burger').insertAfter($this);
+        var $span = $('<span>').appendTo($burger);
+
+        return $burger;
+    }
+
+    MobileMenu.prototype.animateBurger = function($burger) {
+        console.log('hello');
+        $burger.click(function() {
+            $(this).toggleClass('active');
+            });
     }
 
     $.fn.mobilemenu = function(options) {
