@@ -1,102 +1,53 @@
 /* ==========================================================================
-   Main Stylesheet
+   nav-menu Main Stylesheet
    ========================================================================== */
-/* ==========================================================================
-   Variables
-   ========================================================================== */
-/* ---------------------------------------------
-      Color
-   --------------------------------------------- */
-/* ---------------------------------------------
-      Mixins
-   --------------------------------------------- */
-/* ==========================================================================
-   Typography
-   ========================================================================== */
-@font-face {
-  font-family: myFirstFont;
-  src: url(fonts/Franklin Gothic Demi Cond Regular.ttf);
-}
-/* ==========================================================================
-   Elements
-   ========================================================================== */
-/* ---------------------------------------------
-			Buttons
-   --------------------------------------------- */
-.btn {
-  background-color: blue;
-  display: inline-block;
-  text-decoration: none;
-  color: #fff;
-}
-.btn:hover {
-  color: blue;
-  text-decoration: none;
-  background-color: #fff;
-  border: 1px solid blue;
-}
-.btn-sm {
-  padding: 20px;
-}
-/* ==========================================================================
-   Layout
-   ========================================================================== */
-/* ==========================================================================
-   Homepage
-   ========================================================================== */
-/* ---------------------------------------------
-      Header
-   --------------------------------------------- */
-.main-header {
-  font-family: myFirstFont;
-}
-.logo-text {
-  text-indent: -9999px;
-}
-/* ---------------------------------------------
-      Slider
-   --------------------------------------------- */
-.cycle-prev,
-.cycle-next {
-  display: inline-block;
-}
-/* ---------------------------------------------
-      Footer
-   --------------------------------------------- */
-footer {
-  height: 700px;
-  background-color: green;
-}
-/* ---------------------------------------------
-      UpScroll
-   --------------------------------------------- */
-.uparrow {
-  background: url('../img/uparrow.png');
-  cursor: pointer;
-  width: 66px;
-  height: 67px;
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  display: none;
-}
-/*------------------------------------------
-  Responsive Grid Media Queries - 1280, 1024, 768, 480
-   1280-1024   - desktop (default grid)
-   1024-768    - tablet landscape
-   768-480     - tablet 
-   480-less    - phone landscape & smaller
 
-   Also, may modify and just make breakpoints where site goes wrong.
---------------------------------------------*/
-/*-------------------------------------------------------------------------------*/
-/* Portrait */
-@media screen and (orientation: portrait) {
-  /* Portrait styles here */
+/* ---------------------------------------------
+      Animated Burger (Leave this CSS Unchanged)
+   --------------------------------------------- */
+
+#navToggle { 
+  cursor: pointer;
+  padding: 10px 35px 16px 0px;
+  float: right;
 }
-/* Landscape */
-@media screen and (orientation: landscape) {
-  /* Landscape styles here */
+
+#navToggle span, #navToggle span:before, #navToggle span:after {
+  cursor: pointer;
+  border-radius: 1px;
+  height: 5px;
+  width: 35px;
+  background: #777;
+  position: absolute;
+  display: block;
+  content: '';
+  transition: all 500ms ease-in-out;
 }
-/* Non-Retina */
-/* Retina */
+
+#navToggle span:before {
+  top: -10px; 
+}
+
+#navToggle span:after {
+    bottom: -10px;
+}
+
+#navToggle.active span {
+    background-color: transparent;
+}
+
+#navToggle.active span:before, #navToggle.active span:after {
+  top: 0;
+}
+
+#navToggle.active span:before {
+  -ms-transform: rotate(45deg); /* IE 9 */
+  -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+  transform: rotate(45deg);
+}
+
+#navToggle.active span:after {
+  -ms-transform: rotate(-45deg); /* IE 9 */
+  -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
+  transform: rotate(-45deg);
+}
