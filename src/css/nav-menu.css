@@ -9,7 +9,6 @@
 #burger { 
   cursor: pointer;
   padding: 10px 35px 16px 0px;
-  float: right;
 }
 
 #burger span, #burger span:before, #burger span:after {
