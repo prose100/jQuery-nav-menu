@@ -2,6 +2,15 @@
    nav-menu Main Stylesheet
    ========================================================================== */
 
+.nav-menu {
+  list-style: none;
+  font-size: 24px;
+}
+
+.nav-menu li {
+  display: inline-block;
+}
+
 /* ---------------------------------------------
       Animated Burger (Leave this CSS Unchanged)
    --------------------------------------------- */
