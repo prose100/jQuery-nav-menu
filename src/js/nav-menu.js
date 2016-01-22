@@ -3,7 +3,7 @@
     var defaults = {
         windowWidth: "800",
         duration: 500,
-        sidebarLocation: 'left'
+        sidebarLocation: 'right'
     };
 
     function MobileMenu (element, options) {
@@ -15,6 +15,7 @@
     }
 
     MobileMenu.prototype.init = function() {
+         document.body.style.overflow = 'hidden';
 
         var $burger = this.createBurger();
 
@@ -46,7 +47,7 @@
         $sidebar.css({'position':'absolute', 'list-style':'none',
                         'display':'inline-block', 'padding': 0});
         $sidebar.css(this.positionInit($sidebar));
-
+        $sidebar.hide();
         console.log(-$sidebar.width());
         return $sidebar;
     }
@@ -89,14 +90,13 @@
            if (settings.sidebarLocation == "left") {
                 return {left:-$sidebar.width(), top:0}
             } else {
-                return {right:$sidebar.width(), top:0}
+                return {right:-$sidebar.width(), top:0}
             }
         } else {
-            if (settings.sidebarLocation == "left") {
-                console.log($sidebar.width());
+            if (settings.sidebarLocation == "left") { 
                 return {left:0, top:0}
             } else {
-                return {right:$sidebar.width(), top:0}
+                return {right:0, top:0}
             }
         }
     }
@@ -105,6 +105,7 @@
         var _this = this;
 
         $burger.click(function() {
+            $sidebar.show();
             $sidebar.animate(_this.positionSidebar($sidebar), settings.duration);
             console.log(_this.positionSidebar($sidebar));
             _this.toggleMobile();
