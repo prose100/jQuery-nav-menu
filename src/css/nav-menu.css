@@ -12,11 +12,15 @@
   display: inline-block;
 }
 
+.sidebar {
+  background-color: #fff;
+}
+
 /* ---------------------------------------------
     Burger 
    --------------------------------------------- */
 
-#burger span, #burger span:before, #burger span:after {
+.burger span, .burger span:before, .burger span:after {
   cursor: pointer;
   border-radius: 1px;
   height: 5px;
@@ -27,11 +31,11 @@
   content: '';
 }
 
-#burger span:before {
+.burger span:before {
   top: -10px; 
 }
 
-#burger span:after {
+.burger span:after {
   bottom: -5px;
 }
 

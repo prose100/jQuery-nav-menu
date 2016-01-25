@@ -1,14 +1,17 @@
 ;(function($){
 
     var defaults = {
-        windowWidth: "900",
+        windowWidth: 900,
         slideDuration: 500,
         sidebarLocation: 'right',
-        slideDistance: "60",
+        slideDistance: 60,
         moveBurgerX: 0,
         moveBurgerY: 0,
         moveSidebarX: 0,
-        moveSidebarY: 0
+        moveSidebarY: 0,
+        burgerClass: 'burger',
+        sidebarClass: 'sidebar',
+        wrapperClass: 'wrapper'
     }
 
     function MobileMenu (element, options) {
@@ -23,14 +26,14 @@
          document.body.style.overflow = 'hidden';
 
         var $sidebar = this.createSidebar();
-        var $burger = this.createBurger($sidebar);
+        var $burger = this.createBurger();
         var $wrapper = this.createWrapper($burger, $sidebar);
 
         this.initPositions($burger, $sidebar, $wrapper);
         this.configDisplay($burger);
         this.resizeWindow($burger, $sidebar, $wrapper);
         
-        this.animate($burger, $sidebar, $wrapper);
+        this.slide($burger, $sidebar, $wrapper);
     }
 
     MobileMenu.prototype.toggleMobile = function() {
@@ -38,7 +41,7 @@
     }
 
     MobileMenu.prototype.createBurger = function() {
-        var $burger = $('<div>').attr('id', 'burger')
+        var $burger = $('<div>').attr('class', settings.burgerClass)
         var $span = $('<span>').appendTo($burger);
          
         this.absolute($burger);
@@ -47,7 +50,7 @@
     }
 
     MobileMenu.prototype.createSidebar = function() {
-        var $sidebar = $('<ul>').attr('id', 'sidebar')
+        var $sidebar = $('<ul>').attr('class', settings.sidebarClass)
         var $sidebarList = $this.children().css({}).clone().appendTo($sidebar);
 
         $sidebar.css({'list-style':'none', 'padding': 0});
@@ -58,7 +61,7 @@
     }
 
     MobileMenu.prototype.createWrapper = function($burger, $sidebar) {
-        var $wrapper = $('<div>').attr('id', 'wrapper').insertAfter($this);
+        var $wrapper = $('<div>').attr('class', settings.wrapperClass).insertAfter($this);
         
         $burger.appendTo($wrapper);
         $sidebar.appendTo($wrapper);
@@ -125,7 +128,7 @@
         }
     }
 
-    MobileMenu.prototype.animate = function($burger, $sidebar, $wrapper) {
+    MobileMenu.prototype.slide = function($burger, $sidebar, $wrapper) {
         var _this = this;
 
         $burger.click(function() {
