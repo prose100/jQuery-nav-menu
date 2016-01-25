@@ -2,48 +2,22 @@
    nav-menu Main Stylesheet
    ========================================================================== */
 
-.logo {
-  font-size: 36px;
-  float: left;
-}
-
 .nav-menu {
-  list-style: none;
   font-size: 24px;
-  float: right;
-  margin: 0px;
+  list-style: none;
+  float: left;
 }
 
 .nav-menu li {
   display: inline-block;
 }
 
-#wrapper {
-  width: 500px;
-}
-
-#sidebar {
-  margin: 0;
-  padding: 0;
-  left: 50px;
-  background-color: #fff;
-}
-.clearfix:after {
-  display: table;
-  clear: both;
-  content: " ";
-}
-
 /* ---------------------------------------------
     Burger 
    --------------------------------------------- */
 
-#burger { 
-  cursor: pointer;
-  z-index: 9999;
-}
-
 #burger span, #burger span:before, #burger span:after {
+  cursor: pointer;
   border-radius: 1px;
   height: 5px;
   width: 35px;
@@ -51,7 +25,6 @@
   position: relative;
   display: block;
   content: '';
- 
 }
 
 #burger span:before {
@@ -60,4 +33,14 @@
 
 #burger span:after {
   bottom: -5px;
+}
+
+/* ---------------------------------------------
+      Wrapper (Helper class is needed.)
+   --------------------------------------------- */
+
+.clearfix:after {
+  display: table;
+  clear: both;
+  content: " ";
 }

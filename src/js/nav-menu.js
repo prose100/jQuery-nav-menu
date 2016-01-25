@@ -2,9 +2,13 @@
 
     var defaults = {
         windowWidth: "900",
-        duration: 500,
-        sidebarLocation: 'left',
-        slideDistance: "60"
+        slideDuration: 500,
+        sidebarLocation: 'right',
+        slideDistance: "60",
+        moveBurgerX: 0,
+        moveBurgerY: 0,
+        moveSidebarX: 0,
+        moveSidebarY: 0
     }
 
     function MobileMenu (element, options) {
@@ -23,7 +27,7 @@
         var $wrapper = this.createWrapper($burger, $sidebar);
 
         this.initPositions($burger, $sidebar, $wrapper);
-        this.configDisplay($burger, $sidebar);
+        this.configDisplay($burger);
         this.resizeWindow($burger, $sidebar, $wrapper);
         
         this.animate($burger, $sidebar, $wrapper);
@@ -33,7 +37,7 @@
         this.isMobile = !this.isMobile;
     }
 
-    MobileMenu.prototype.createBurger = function($sidebar) {
+    MobileMenu.prototype.createBurger = function() {
         var $burger = $('<div>').attr('id', 'burger')
         var $span = $('<span>').appendTo($burger);
          
@@ -42,7 +46,7 @@
         return $burger;
     }
 
-    MobileMenu.prototype.createSidebar = function($burger) {
+    MobileMenu.prototype.createSidebar = function() {
         var $sidebar = $('<ul>').attr('id', 'sidebar')
         var $sidebarList = $this.children().css({}).clone().appendTo($sidebar);
 
@@ -65,7 +69,7 @@
         return $wrapper;
     }
 
-    MobileMenu.prototype.configDisplay = function($burger, $sidebar) {
+    MobileMenu.prototype.configDisplay = function($burger) {
         if ($(window).width()<settings.windowWidth) {
                 $burger.show();
                 $this.hide();
@@ -89,23 +93,23 @@
         $(window).resize(function() {
            _this.initPositions($burger, $sidebar, $wrapper);
 
-           _this.configDisplay($burger, $sidebar);
+           _this.configDisplay($burger);
         })
     }
 
     MobileMenu.prototype.initPositions = function($burger, $sidebar, $wrapper) {
          if (settings.sidebarLocation == "left") {
-            $burger.css({left:$sidebar.width(), top:0});
-            $sidebar.css({left:0, top:0});
+            $burger.css({left:$sidebar.width()+settings.moveBurgerX, top:settings.moveBurgerY});
+            $sidebar.css({left:settings.moveSidebarX, top:settings.moveSidebarY});
             $wrapper.css({left:-$sidebar.width()-8, top:0});
         } else if (settings.sidebarLocation == "right") {
-            $burger.css({left:0, top:0});
-            $sidebar.css({left:$burger.width(), top:0});
+            $burger.css({left:settings.moveBurgerX, top:settings.moveBurgerY});
+            $sidebar.css({left:$burger.width()+settings.moveSidebarX, top:settings.moveSidebarY});
             $wrapper.css({left:($(window).width()-$burger.width())+"px", top:0})
         }
     }
 
-    MobileMenu.prototype.nextPositionSidebar = function() {
+    MobileMenu.prototype.updateWrapperPosition = function() {
         if (this.isMobile) {
             if (settings.sidebarLocation == "left") {
                 return {left: "-=" + settings.slideDistance + "px"}
@@ -126,7 +130,7 @@
 
         $burger.click(function() {
             $sidebar.show();
-            $wrapper.animate(_this.nextPositionSidebar(), settings.duration);
+            $wrapper.animate(_this.updateWrapperPosition(), settings.slideDuration);
             _this.toggleMobile();
         })   
     }
