@@ -2,34 +2,56 @@
    nav-menu Main Stylesheet
    ========================================================================== */
 
+.logo {
+  font-size: 36px;
+  float: left;
+}
+
 .nav-menu {
   list-style: none;
   font-size: 24px;
+  float: right;
+  margin: 0px;
 }
 
 .nav-menu li {
   display: inline-block;
 }
 
+#wrapper {
+  width: 500px;
+}
+
+#sidebar {
+  margin: 0;
+  padding: 0;
+  left: 50px;
+  background-color: #fff;
+}
+.clearfix:after {
+  display: table;
+  clear: both;
+  content: " ";
+}
+
 /* ---------------------------------------------
-      Animated Burger (Leave this CSS Unchanged)
+    Burger 
    --------------------------------------------- */
 
 #burger { 
   cursor: pointer;
-  padding: 10px 35px 16px 0px;
+  z-index: 9999;
 }
 
 #burger span, #burger span:before, #burger span:after {
-  cursor: pointer;
   border-radius: 1px;
   height: 5px;
   width: 35px;
   background: #777;
-  position: absolute;
+  position: relative;
   display: block;
   content: '';
-  transition: all 500ms ease-in-out;
+ 
 }
 
 #burger span:before {
@@ -37,25 +59,5 @@
 }
 
 #burger span:after {
-  bottom: -10px;
-}
-
-#burger.active span {
-  background-color: transparent;
-}
-
-#burger.active span:before, #burger.active span:after {
-  top: 0;
-}
-
-#burger.active span:before {
-  -ms-transform: rotate(45deg); /* IE 9 */
-  -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
-  transform: rotate(45deg);
-}
-
-#burger.active span:after {
-  -ms-transform: rotate(-45deg); /* IE 9 */
-  -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
-  transform: rotate(-45deg);
+  bottom: -5px;
 }
