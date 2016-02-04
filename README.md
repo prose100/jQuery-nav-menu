@@ -1,8 +1,6 @@
-# jQuery-nav-menu Plugin
+# jQuery-Nav-Menu Plugin
 
-This plugin provides a slide-in navigation menu during a mobile state.
-
-## Overview
+The jQuery-Nav-Menu Plugin provides a slide-in navigation menu during a mobile state.
 
 ## Getting Started
 
@@ -10,7 +8,8 @@ This plugin provides a slide-in navigation menu during a mobile state.
 
 ### Including it on your page
 
-Include jQuery and the plugin on a page.  Call the function as shown.
+Here is a basic implementation. Include the shown HTML and scripts.  Call the function as shown.
+The properties shown are the defaults.
 
 ```html
 <ul class="nav-menu" style="display:none">
@@ -24,19 +23,25 @@ Include jQuery and the plugin on a page.  Call the function as shown.
 <script>
 $(function() {
     $(".nav-menu").mobilemenu({
-      	windowWidth: 900,
+      	windowWidth: 600,
         slideDuration: 500,
         sidebarLocation: 'right',
-        slideDistance: 60,
+        slideDistance: 70,
         moveBurgerX: 0,
         moveBurgerY: 0,
         moveSidebarX: 0,
         moveSidebarY: 0,
+        burgerSpanHeight: 5,
+        burgerSpanWidth: 30,
+        burgerSpacing: 4,
+        burgerColor: "#777",
         burgerClass: 'burger',
-        sidebarClass: 'sidebar',
-        wrapperClass: 'wrapper'
+        sidebarClass: 'sidebar'
     });
 });
 </script>
 ```
  
+## Getting more details
+
+Visit [paultrose.com](http://www.paultrose.com/blogJan16.html) for more details about this plugin.
