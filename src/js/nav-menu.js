@@ -1,14 +1,18 @@
 ;(function($){
 
     var defaults = {
-        windowWidth: 900,
+        windowWidth: 600,
         slideDuration: 500,
         sidebarLocation: 'right',
-        slideDistance: 60,
+        slideDistance: 70,
         moveBurgerX: 0,
         moveBurgerY: 0,
         moveSidebarX: 0,
         moveSidebarY: 0,
+        burgerSpanHeight: 5,
+        burgerSpanWidth: 30,
+        burgerSpacing: 4,
+        burgerColor: "#777",
         burgerClass: 'burger',
         sidebarClass: 'sidebar',
         wrapperClass: 'wrapper'
@@ -42,11 +46,32 @@
 
     MobileMenu.prototype.createBurger = function() {
         var $burger = $('<div>').attr('class', settings.burgerClass)
-        var $span = $('<span>').appendTo($burger);
-         
+        $burger.css({'cursor':'pointer'});
+
+        var $spanMiddle = this.createSpan();
+        $spanMiddle.appendTo($burger);
+
+        $spanMiddle.css({'margin-top': settings.burgerSpacing, 'margin-bottom': settings.burgerSpacing});
+
+        var $spanTop = this.createSpan();
+        $spanTop.insertBefore($spanMiddle);
+        var $spanBottom = this.createSpan();
+        $spanBottom.insertAfter($spanMiddle);
+
         this.absolute($burger);
 
         return $burger;
+    }
+
+    MobileMenu.prototype.createSpan = function() {
+        return $('<span>').css(this.spanProperties());
+    }
+
+    MobileMenu.prototype.spanProperties = function() {
+        return {'height': settings.burgerSpanHeight,
+                'width': settings.burgerSpanWidth,
+                'background': settings.burgerColor,
+                'display': 'block'}
     }
 
     MobileMenu.prototype.createSidebar = function() {

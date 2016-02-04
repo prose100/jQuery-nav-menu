@@ -35,10 +35,20 @@
     <script src="js/nav-menu.js"></script>
     <script>
     $(function() {
-        $(".nav-menu").mobilemenu({
-          slideDuration: 600
-        });
-    });
-  </script>
+      $(".nav-menu").mobilemenu({
+          sidebarLocation: 'right',
+          slideDistance: 120,
+          moveBurgerX: -5,
+          moveBurgerY: -12,
+          moveSidebarX: 0,
+          moveSidebarY: -12,
+          burgerSpanHeight: 10,
+          burgerSpanWidth: 45,
+          burgerSpacing: 3,
+          burgerColor: '#000',
+          sidebarClass: 'sidebar3'
+          });
+     });
+    </script>
 </body>
 </html>

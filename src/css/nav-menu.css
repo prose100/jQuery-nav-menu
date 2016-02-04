@@ -15,36 +15,3 @@
 .sidebar {
   background-color: #fff;
 }
-
-/* ---------------------------------------------
-    Burger 
-   --------------------------------------------- */
-
-.burger span, .burger span:before, .burger span:after {
-  cursor: pointer;
-  border-radius: 1px;
-  height: 5px;
-  width: 35px;
-  background: #777;
-  position: relative;
-  display: block;
-  content: '';
-}
-
-.burger span:before {
-  top: -10px; 
-}
-
-.burger span:after {
-  bottom: -5px;
-}
-
-/* ---------------------------------------------
-      Wrapper (Helper class is needed.)
-   --------------------------------------------- */
-
-.clearfix:after {
-  display: table;
-  clear: both;
-  content: " ";
-}
