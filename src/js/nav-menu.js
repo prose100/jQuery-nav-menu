@@ -22,7 +22,7 @@
         settings = $.extend({}, defaults, options);
         $this = $(element);
 
-        this.isMobile = false;
+        this.isMenuDisplayed = false;
         this.init();
     }
 
@@ -40,8 +40,8 @@
         this.slide($burger, $sidebar, $wrapper);
     }
 
-    MobileMenu.prototype.toggleMobile = function() {
-        this.isMobile = !this.isMobile;
+    MobileMenu.prototype.toggleMenuDisplay = function() {
+        this.isMenuDisplayed = !this.isMenuDisplayed;
     }
 
     MobileMenu.prototype.createBurger = function() {
@@ -138,7 +138,7 @@
     }
 
     MobileMenu.prototype.updateWrapperPosition = function() {
-        if (this.isMobile) {
+        if (this.isMenuDisplayed) {
             if (settings.sidebarLocation == "left") {
                 return {left: "-=" + settings.slideDistance + "px"}
             } else if (settings.sidebarLocation == "right") {
@@ -159,7 +159,7 @@
         $burger.click(function() {
             $sidebar.show();
             $wrapper.animate(_this.updateWrapperPosition(), settings.slideDuration);
-            _this.toggleMobile();
+            _this.toggleMenuDisplay();
         })   
     }
 
