@@ -27,7 +27,8 @@
     }
 
     MobileMenu.prototype.init = function() {
-         document.body.style.overflow = 'hidden';
+        document.body.style.overflowX = 'hidden';
+        document.body.style.overflowY = 'scroll';  
 
         var $sidebar = this.createSidebar();
         var $burger = this.createBurger();
@@ -125,15 +126,34 @@
         })
     }
 
+    MobileMenu.prototype.getScrollBarWidth = function() {
+        var parent, child, width;
+
+          if (width===undefined) {
+            parent = $('<div style="width:50px;height:50px;overflow:auto"><div/></div>').appendTo('body');
+            child=parent.children();
+            width=child.innerWidth()-child.height(99).innerWidth()-8;
+            parent.remove();
+          }
+        return width;
+    };
+
     MobileMenu.prototype.initPositions = function($burger, $sidebar, $wrapper) {
-         if (settings.sidebarLocation == "left") {
+         if (settings.sidebarLocation === "left") {
             $burger.css({left:$sidebar.width()+settings.moveBurgerX, top:settings.moveBurgerY});
             $sidebar.css({left:settings.moveSidebarX, top:settings.moveSidebarY});
-            $wrapper.css({left:-$sidebar.width()-8, top:0});
-        } else if (settings.sidebarLocation == "right") {
+            console.log($(window).width());
+            console.log($burger.width());
+             console.log($sidebar.width());
+            console.log(this.getScrollBarWidth());
+            $wrapper.css({left:-$sidebar.width()-this.getScrollBarWidth(), top:0});
+        } else if (settings.sidebarLocation === "right") {
             $burger.css({left:settings.moveBurgerX, top:settings.moveBurgerY});
             $sidebar.css({left:$burger.width()+settings.moveSidebarX, top:settings.moveSidebarY});
-            $wrapper.css({left:($(window).width()-$burger.width())+"px", top:0})
+            console.log($(window).width());
+            console.log($burger.width());
+            console.log(this.getScrollBarWidth());
+            $wrapper.css({left:($(window).width()-$burger.width()-this.getScrollBarWidth()), top:0})
         }
     }
 
