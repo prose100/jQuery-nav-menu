@@ -27,8 +27,6 @@
     }
 
     MobileMenu.prototype.init = function() {
-        document.body.style.overflowX = 'hidden';
-        document.body.style.overflowY = 'scroll';  
 
         var $sidebar = this.createSidebar();
         var $burger = this.createBurger();

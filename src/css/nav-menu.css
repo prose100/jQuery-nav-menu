@@ -15,3 +15,11 @@
 .sidebar {
   background-color: #fff;
 }
+
+/* ---------------------------------------------
+		Hack (required to work on cell phones)
+   --------------------------------------------- */
+
+html, body {
+	overflow-x: hidden;
+}
