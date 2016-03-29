@@ -12,6 +12,7 @@ Here is a basic implementation. Include the shown link, HTML, and scripts.  Call
 The properties shown are the defaults.
 
 ```html
+//Initializes position and style of nav-menu
 <link href="css/nav-menu.css" rel="stylesheet">
 
 <ul class="nav-menu">
