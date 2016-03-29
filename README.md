@@ -8,11 +8,13 @@ The jQuery-Nav-Menu Plugin provides a slide-in navigation menu during a mobile s
 
 ### Including it on your page
 
-Here is a basic implementation. Include the shown HTML and scripts.  Call the function as shown.
+Here is a basic implementation. Include the shown link, HTML, and scripts.  Call the function as shown.
 The properties shown are the defaults.
 
 ```html
-<ul class="nav-menu" style="display:none">
+<link href="css/nav-menu.css" rel="stylesheet">
+
+<ul class="nav-menu">
     <li><a href="#">Home</a></li>
     <li><a href="#">About</a></li>
     <li><a href="#">Contact</a></li>
