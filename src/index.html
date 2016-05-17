@@ -36,15 +36,17 @@
     <script>
     $(function() {
       $(".nav-menu").mobilemenu({
+          windowWidth: 900,
           sidebarLocation: 'right',
           slideDistance: 120,
           moveBurgerX: 0,
           moveBurgerY: 0,
           moveSidebarX: 0,
-          moveSidebarY: 0,
+          moveSidebarY: -18,
           burgerSpanHeight: 10,
           burgerSpanWidth: 45,
           burgerSpacing: 3,
+          burgerVisible: false,
           burgerColor: '#000',
           burgerClass: 'burger',
           sidebarClass: 'sidebar'
