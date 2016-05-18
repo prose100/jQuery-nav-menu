@@ -36,22 +36,26 @@
     <script>
     $(function() {
       $(".nav-menu").mobilemenu({
-          windowWidth: 900,
-          sidebarLocation: 'right',
-          slideDistance: 120,
-          moveBurgerX: 0,
-          moveBurgerY: 0,
-          moveSidebarX: 0,
-          moveSidebarY: -18,
-          burgerSpanHeight: 10,
-          burgerSpanWidth: 45,
-          burgerSpacing: 3,
-          burgerVisible: false,
-          burgerColor: '#000',
-          burgerClass: 'burger',
-          sidebarClass: 'sidebar'
-          });
-     });
+        windowWidth: 600,
+        slideDuration: 500,
+        sidebarLocation: 'left',
+        slideDistance: 200,
+        moveBurgerX: 0,
+        moveBurgerY: 0,
+        moveSidebarX: 0,
+        moveSidebarY: 0,
+        burgerSpanHeight: 5,
+        burgerSpanWidth: 30,
+        burgerSpacing: 4,
+        burgerColor: '#777',
+        burgerVisible: false,
+        burgerClass: 'burger',
+        sidebarClass: 'sidebar',
+        wrapperClass: 'wrapper',
+        overlayClass: 'overlay',
+        activeOverlayClass: 'activeOverlay'
+      });
+    });
     </script>
 </body>
 </html>

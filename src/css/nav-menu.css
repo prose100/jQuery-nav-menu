@@ -2,6 +2,11 @@
    nav-menu Main Stylesheet
    ========================================================================== */
 
+body {
+  margin: 0px;
+  height: 2000px;
+}
+
 .nav-menu {
   font-size: 24px;
   list-style: none;
@@ -20,6 +25,7 @@
 .sidebar {
   background-color: #000;
   width: 200px;
+  margin: 0px;
 }
 
 .sidebar a {
@@ -27,7 +33,7 @@
 }
 
 /* ---------------------------------------------
-    Predefined classes
+    Predefined classes (required)
    --------------------------------------------- */
 .activeOverlay {
   position: fixed;
@@ -41,13 +47,4 @@
    --------------------------------------------- */
 html, body {
 	overflow-x: hidden;
-}
-
-/* ---------------------------------------------
-      Helper class (required)
-   --------------------------------------------- */
-.clearfix:after {
-  content: " ";
-  display: table;
-  clear: both;
 }
