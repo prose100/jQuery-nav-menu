@@ -33,17 +33,17 @@
     MobileMenu.prototype.init = function() {
         var $burger = this.createBurger();
         var $sidebar = this.createSidebar();
-        var $innerWrapper = this.createWrappers($burger, $sidebar);
+        var $outerWrapper = this.createWrappers($burger, $sidebar);
         var $overlay = this.createOverlay();
 
         this.positionBurger($burger, $sidebar);
         this.positionSidebar($burger, $sidebar);
-        this.position($burger, $sidebar, $innerWrapper);
+        this.position($burger, $sidebar, $outerWrapper);
         this.configDisplay($burger, $sidebar);
-        this.resizeWindow($burger, $sidebar, $innerWrapper, $overlay);
+        this.resizeWindow($burger, $sidebar, $outerWrapper, $overlay);
         
         this.animate = false;
-        this.slide($burger, $sidebar, $innerWrapper, $overlay);
+        this.slide($burger, $sidebar, $outerWrapper, $overlay);
     }
 
      MobileMenu.prototype.isMobile = function() {
@@ -128,7 +128,7 @@
             'position': 'fixed'
         })
 
-        return $innerWrapper;
+        return $outerWrapper;
     }
 
     MobileMenu.prototype.createOverlay = function() {
@@ -159,11 +159,11 @@
             }
     }
 
-    MobileMenu.prototype.resizeWindow = function($burger, $sidebar, $innerWrapper, $overlay) {
+    MobileMenu.prototype.resizeWindow = function($burger, $sidebar, $outerWrapper, $overlay) {
         var _this = this;
 
         $(window).resize(function() {
-            _this.position($burger, $sidebar, $innerWrapper);
+            _this.position($burger, $sidebar, $outerWrapper);
             _this.configDisplay($burger, $sidebar, $overlay);            
         });
     }
@@ -180,22 +180,22 @@
         return width;
     }
 
-    MobileMenu.prototype.position = function($burger, $sidebar, $innerWrapper) {
+    MobileMenu.prototype.position = function($burger, $sidebar, $outerWrapper) {
         var _sidebarLocation = settings.sidebarLocation;
         if (_sidebarLocation === "right" && settings.menuOpen) {
-            $innerWrapper.css({left:($(window).width()-$burger.width()-$sidebar.width()), top:0})
+            $outerWrapper.css({left:($(window).width()-$burger.width()-$sidebar.width()), top:0})
             } else if (_sidebarLocation === "right") {
-                $innerWrapper.css({left:($(window).width()-$burger.width()), top:0})
+                $outerWrapper.css({left:($(window).width()-$burger.width()), top:0})
             } 
 
         if (_sidebarLocation === "left" && settings.menuOpen) {
-            $innerWrapper.css({left:0, top:0});
+            $outerWrapper.css({left:0, top:0});
             } else if (_sidebarLocation === "left") {
-                $innerWrapper.css({left:-$sidebar.width(), top:0});
+                $outerWrapper.css({left:-$sidebar.width(), top:0});
             } 
     }
 
-    MobileMenu.prototype.slide = function($burger, $sidebar, $innerWrapper, $overlay) {
+    MobileMenu.prototype.slide = function($burger, $sidebar, $outerWrapper, $overlay) {
         var _this = this;
         var _slideDuration = settings.slideDuration;
         var _burgerVisible = settings.burgerVisible;
@@ -204,7 +204,7 @@
         $burger.click(function() {
             $sidebar.show();
 
-            $innerWrapper.animate(_this.updateWrapperPosition(settings.menuOpen), _slideDuration);
+            $outerWrapper.animate(_this.updateWrapperPosition(settings.menuOpen), _slideDuration);
             settings.menuOpen = !settings.menuOpen;  
             
             if (settings.menuOpen) {
@@ -219,7 +219,7 @@
         });
 
         $overlay.click(function() {
-            $innerWrapper.animate(_this.updateWrapperPosition(settings.menuOpen), _slideDuration, function() {
+            $outerWrapper.animate(_this.updateWrapperPosition(settings.menuOpen), _slideDuration, function() {
                 $burger.show();
             });
             
