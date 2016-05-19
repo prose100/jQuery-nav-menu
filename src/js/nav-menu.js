@@ -204,6 +204,7 @@
 
      MobileMenu.prototype.positionWrappers = function($burger, $sidebar, $innerWrapper) {
         var _sidebarLocation = settings.sidebarLocation;
+
         var browserPositionY =  window.pageYOffset || document.documentElement.scrollTop;
 
         if (_sidebarLocation === "right" && this.getOpenMenuStatus()) {
@@ -268,10 +269,12 @@
             _this.configDisplay($burger, $sidebar, $overlay, $innerWrapper);            
         });
 
-        $(window).scroll(function() {
-            console.log('scroll')
-            _this.positionWrappers($burger, $sidebar, $innerWrapper);
-        });
+        if (settings.fixedSidebar) {
+            $(window).scroll(function() {
+                console.log('scroll')
+                _this.positionWrappers($burger, $sidebar, $innerWrapper);
+            });
+        }
     }
 
     MobileMenu.prototype.animate = function($burger, $sidebar, $innerWrapper, $overlay) {
