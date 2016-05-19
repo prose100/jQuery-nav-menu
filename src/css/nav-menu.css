@@ -27,7 +27,7 @@ body, nav, ul, li, p {
 .sidebar {
   background-color: #000;
   width: 200px;
-  height: 400px;
+  height: 100px;
 }
 
 .sidebar a {
