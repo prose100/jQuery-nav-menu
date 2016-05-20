@@ -10,7 +10,6 @@
     <meta name="keywords" content="">
     
     <link href="css/nav-menu.css" rel="stylesheet">
-     <link href="css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,12 +22,12 @@
 <body>        
     <div class="header clearfix">
         <div class="content">Logo</div>
-        <ul class="nav-menu" style="display:none">
+        <ul class="nav-menu"> 
             <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
-    </div>   
+    </div>  
 
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
@@ -36,9 +35,30 @@
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
 
+    <div class="header clearfix">
+        <div class="content">Logo</div>
+        <ul class="nav-menu2"> 
+            <li><a href="#">Home2</a></li>
+            <li><a href="#">About2</a></li>
+            <li><a href="#">Contact2</a></li>
+        </ul>
+    </div>  
 
-          
-    <!-- jQuery cdn (necessary for Bootstrap's JavaScript plugins) -->
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, molestias laudantium exercitationem ipsum porro maxime iure autem eveniet necessitatibus tempore. Tenetur illo incidunt delectus quaerat! Eveniet distinctio temporibus fuga rerum.</p>
+
+
+
+     <!-- jQuery cdn (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-1.12.3.min.js"   integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ="   crossorigin="anonymous"></script>
 
     <script src="js/nav-menu.js"></script>
@@ -46,6 +66,38 @@
     <script>
         $(function() {
           $(".nav-menu").mobilemenu({
+            windowWidth: 753,
+            slideDuration: 500,
+            sidebarLocation: 'left',
+            slideDistance: 200,
+            moveBurgerX: 0,
+            moveBurgerY: 0,
+            moveSidebarX: 0,
+            moveSidebarY: 0,
+            moveInnerWrapperX: 0,
+            moveInnerWrapperY: 0,
+            burgerSpanHeight: 5,
+            burgerSpanWidth: 30,
+            burgerSpacing: 4,
+            burgerColor: '#777',
+            burgerVisible: true,
+            fixedBurger: false,
+            fixedSidebar: true,
+            burgerClass: 'burger',
+            sidebarClass: 'sidebar',
+            innerWrapperClass: 'innerWrapper',
+            outerWrapperClass: 'outerWrapper',
+            overlayClass: 'overlay',
+            activeOverlayClass: 'activeOverlay'
+          });
+        });
+        </script> 
+
+    <script src="js/nav-menu02.js"></script>
+
+    <script>
+        $(function() {
+          $(".nav-menu2").mobilemenu2({
             windowWidth: 753,
             slideDuration: 500,
             sidebarLocation: 'right',
@@ -60,7 +112,8 @@
             burgerSpanWidth: 30,
             burgerSpacing: 4,
             burgerColor: '#777',
-            burgerVisible: false,
+            burgerVisible: true,
+            fixedBurger: false,
             fixedSidebar: true,
             burgerClass: 'burger',
             sidebarClass: 'sidebar',
@@ -70,6 +123,7 @@
             activeOverlayClass: 'activeOverlay'
           });
         });
-    </script>
+    </script>      
+
 </body>
 </html>

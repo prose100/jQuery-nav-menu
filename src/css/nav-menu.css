@@ -24,6 +24,14 @@ body, nav, ul, li, p {
   display: inline-block;
 }
 
+.nav-menu2 {
+  float: right;
+}
+
+.nav-menu2 li {
+  display: inline-block;
+}
+
 .sidebar {
   background-color: #000;
   width: 200px;
@@ -31,6 +39,16 @@ body, nav, ul, li, p {
 }
 
 .sidebar a {
+  color: #fff;
+}
+
+.sidebar2 {
+  background-color: #000;
+  width: 200px;
+  height: 200px;
+}
+
+.sidebar2 a {
   color: #fff;
 }
 
