@@ -51,7 +51,7 @@
     function MobileMenu2 (element, options) {
         settings2 = $.extend({}, defaults, options);
         $this2 = $(element);
-        this.init();       
+        this.init();    
     }
 
     MobileMenu2.prototype.init = function() {
@@ -66,6 +66,7 @@
         var $innerWrapper = this.createWrappers($burger, $sidebar);
         var $overlay = this.createOverlay();
 
+        this.statusInnerWrapper($innerWrapper, 'init');
         this.positionBurger($burger, $sidebar);
         this.positionSidebar($burger, $sidebar);
         this.positionInnerWrapper($burger, $sidebar, $innerWrapper);
@@ -184,6 +185,33 @@
         return $innerWrapper;
     }
 
+    MobileMenu2.prototype.statusInnerWrapper = function($innerWrapper, condition) {
+        //initial state of innerWrapper is relative, or not Fixed
+        if (condition == "init") {
+            //innerWrapper changes to fixed if fixedBurger in its initial condition
+            //otherwise, stays relative
+            if (settings2.fixedBurger) {
+                $innerWrapper.css({'position':'fixed'});
+            }
+        }
+        if (condition == 'slideOut') {
+            if (settings2.fixedBurger && !settings2.fixedSidebar) {
+                $innerWrapper.css({'position':'relative'}); 
+            }
+            if (!settings2.fixedBurger && settings2.fixedSidebar) {
+                $innerWrapper.css({'position':'fixed'});
+            }
+        }
+        if (condition == 'slideIn') {
+            if (settings2.fixedBurger && !settings2.fixedSidebar) {
+                $innerWrapper.css({'position':'fixed'}); 
+            }
+            if (!settings2.fixedBurger && settings2.fixedSidebar) {
+                $innerWrapper.css({'position':'relative'});
+            }
+        }
+    }
+
      MobileMenu2.prototype.positionInnerWrapper = function($burger, $sidebar, $innerWrapper) {
         var _sidebarLocation = settings2.sidebarLocation;
 
@@ -212,9 +240,9 @@
         Overlay
        --------------------------------------------- */
     MobileMenu2.prototype.createOverlay = function() {
-            var $overlay = $('<div>');
-            $overlay.addClass(settings2.overlayClass);
-            $('body').prepend($overlay);
+        var $overlay = $('<div>');
+        $overlay.addClass(settings2.overlayClass);
+        $('body').prepend($overlay);
         return $overlay;
     }
 
@@ -274,9 +302,9 @@
 
             //alternate between slideout and slidein depending on whether the menu is open
             if (!_this.getOpenMenuStatus()) {
-                _this.slideOut($sidebar, $innerWrapper);
+                _this.slideOut($innerWrapper);
             } else {
-                _this.slideIn($sidebar, $innerWrapper);        
+                _this.slideIn($innerWrapper);        
             }
 
             //switch the menu status
@@ -297,7 +325,7 @@
 
         //overlay click event
         $overlay.click(function() {
-             _this.slideIn($sidebar, $innerWrapper);
+             _this.slideIn($innerWrapper);
 
             //switch the menu status
             _this.setOpenMenuStatus(!(_this.getOpenMenuStatus()));
@@ -307,23 +335,19 @@
        });   
     }
 
-    MobileMenu2.prototype.slideIn = function($sidebar, $innerWrapper, cb) {
+    MobileMenu2.prototype.slideIn = function($innerWrapper, cb) {
         var _this = this;
     
         $innerWrapper.animate(_this.updateWrapperPosition(), settings2.slideDuration, function() {
-            if (!settings2.fixedBurger) {
-                $innerWrapper.css({'position': 'relative'});
-            }
+            _this.statusInnerWrapper($innerWrapper, 'slideIn');
         });
     }
 
-    MobileMenu2.prototype.slideOut = function($sidebar, $innerWrapper, cb) {
+    MobileMenu2.prototype.slideOut = function($innerWrapper, cb) {
         var _this = this;
  
         $innerWrapper.animate(_this.updateWrapperPosition(), settings2.slideDuration, function() {
-            if (settings2.fixedSidebar) {
-                $innerWrapper.css({'position': 'fixed'});
-            }  
+            _this.statusInnerWrapper($innerWrapper, 'slideOut'); 
         })
     }
 
