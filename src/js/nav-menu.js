@@ -59,6 +59,9 @@
         var openMenuStatus = false;
         this.setOpenMenuStatus(openMenuStatus);
 
+        var isScrolled = false;
+        this.setIsScrolled(isScrolled);
+
         var $burger = this.createBurger();
         var $sidebar = this.createSidebar();
         
@@ -66,14 +69,13 @@
         var $innerWrapper = this.createWrappers($burger, $sidebar);
         var $overlay = this.createOverlay();
 
-        this.resetInnerWrapper();
-
+        this.setInitialInnerWrapperLocation($innerWrapper);
         this.setPositionPropertyInnerWrapper($sidebar, $innerWrapper, 'init');
         this.positionBurger($burger, $sidebar);
         this.positionSidebar($burger, $sidebar);
-        this.locateInnerWrapper($sidebar, $innerWrapper);
         
         this.configDisplay($burger, $sidebar);
+        this.isRolled();
         this.resizeWindow($burger, $sidebar, $innerWrapper, $overlay);
         
         this.animate($burger, $sidebar, $innerWrapper, $overlay);
@@ -90,6 +92,17 @@
         this.openMenuStatus = openMenuStatus;
     }
 
+     /* ---------------------------------------------
+        Getter and Setter for IsScrolled
+       --------------------------------------------- */
+    MobileMenu.prototype.getIsScrolled = function() {
+        return this.isScrolled;
+    }
+
+    MobileMenu.prototype.setIsScrolled = function(isScrolled) {
+        this.isScrolled = isScrolled;
+    }
+
     /* ---------------------------------------------
         Getter and Setter for innerWrapperLocation
        --------------------------------------------- */
@@ -99,6 +112,25 @@
 
     MobileMenu.prototype.setInnerWrapperLocation = function(innerWrapperLocation) {
         this.innerWrapperLocation = innerWrapperLocation;
+    }
+
+    /* ---------------------------------------------
+        Getter and Setter for Initial innerWrapperLocation
+       --------------------------------------------- */
+    MobileMenu.prototype.getInitialInnerWrapperLocation = function() {
+        return this.initialInnerWrapperLocation;
+    }
+
+    MobileMenu.prototype.setInitialInnerWrapperLocation = function($innerWrapper) {
+        //set one time
+        var initialInnerWrapperLocation;
+        initialInnerWrapperLocation = {
+                xleft : 0,
+                xright : 0,
+                ybottom : 0,
+                ytop : $innerWrapper.offset().top        
+            }          
+        this.initialInnerWrapperLocation = initialInnerWrapperLocation;
     }
 
     /* ---------------------------------------------
@@ -198,55 +230,29 @@
         return $innerWrapper;
     }
 
-    MobileMenu.prototype.offsetInnerWrapper = function($innerWrapper) {
-        var offset = $innerWrapper.offset();
-        //These are absolute locations with respect to the document/browser window.
-        //location.ytop is the only variable used at this point in time. It is used in locateInnerWrapper.
-        var innerWrapperLocation = {
-            xleft : offset.left,
-            xright : offset.right,
-            ybottom : offset.bottom,
-            ytop : offset.top            
+    MobileMenu.prototype.offsetWrappers = function($innerWrapper, type) {
+        var innerWrapperLocation;
+        if (type == 'reset') {
+            console.log('reset')
+            innerWrapperLocation = {
+                xleft : 0,
+                xright : 0,
+                ybottom : 0,
+                ytop : 0            
+            }
+        }
+        if (type == 'viewable') {
+            innerWrapperLocation = {
+                ytop : $innerWrapper.offset().top - $(window).scrollTop()
+            }
+        }
+        if (type == 'relative') {            
+            innerWrapperLocation = {
+                ytop : $innerWrapper.offset().top - this.getInitialInnerWrapperLocation().ytop
+            }
         }
         this.setInnerWrapperLocation(innerWrapperLocation);
     }
-
-    MobileMenu.prototype.resetInnerWrapper = function() {
-        var innerWrapperLocation = {
-            xleft : 0,
-            xright : 0,
-            ybottom : 0,
-            ytop : 0            
-        }
-        this.setInnerWrapperLocation(innerWrapperLocation);
-    }
-
-    // MobileMenu.prototype.setPositionInnerWrapper = function($innerWrapper, condition) {
-    //     //initial state of innerWrapper is relative, or not Fixed
-    //     if (condition == "init") {
-    //         //innerWrapper changes to fixed if fixedBurger in its initial condition
-    //         //otherwise, stays relative
-    //         if (settings.fixedBurger) {
-    //             $innerWrapper.css({'position':'fixed'});
-    //         }
-    //     }
-    //     if (condition == 'slideOut') {
-    //         if (settings.fixedBurger && !settings.fixedSidebar) {
-    //             $innerWrapper.css({'position':'relative'}); 
-    //         }
-    //         if (!settings.fixedBurger && settings.fixedSidebar) {
-    //             this.resetInnerWrapper();
-    //         }
-    //     }
-    //     if (condition == 'slideIn') {
-    //         if (settings.fixedBurger && !settings.fixedSidebar) {
-    //             $innerWrapper.css({'position':'fixed'}); 
-    //         }
-    //         if (!settings.fixedBurger && settings.fixedSidebar) {
-    //             $innerWrapper.css({'position':'relative'});
-    //         }
-    //     }
-    // }
 
     MobileMenu.prototype.setPositionPropertyInnerWrapper = function($sidebar, $innerWrapper, condition) {
         //initial state of innerWrapper is relative, or not Fixed
@@ -254,31 +260,38 @@
             //innerWrapper changes to fixed if fixedBurger in its initial condition
             //otherwise, stays relative
             if (settings.fixedBurger) {
-                this.offsetInnerWrapper($innerWrapper);
+                console.log('fixedBurger')
+                this.offsetWrappers($innerWrapper, 'window');
                 this.locateInnerWrapper($sidebar, $innerWrapper);
                 $innerWrapper.css({'position':'fixed'});
+            } else {
+                console.log('notfixedBurger')
+                this.offsetWrappers($innerWrapper, 'reset');
+                this.locateInnerWrapper($sidebar, $innerWrapper);   
             }
         }
         if (condition == 'slideOut') {
             if (settings.fixedBurger && !settings.fixedSidebar) {
-                this.resetInnerWrapper();
+                this.offsetWrappers($innerWrapper, 'relative');
                 this.locateInnerWrapper($sidebar, $innerWrapper);
                 $innerWrapper.css({'position':'relative'}); 
             }
             if (!settings.fixedBurger && settings.fixedSidebar) {
-                this.offsetInnerWrapper($innerWrapper);
+                this.offsetWrappers($innerWrapper, 'viewable');
                 this.locateInnerWrapper($sidebar, $innerWrapper);
                 $innerWrapper.css({'position':'fixed'});
             }
         }
         if (condition == 'slideIn') {
             if (settings.fixedBurger && !settings.fixedSidebar) {
-                this.offsetInnerWrapper($innerWrapper);
+                this.offsetWrappers($innerWrapper, 'viewable');
+                console.log(this.getInnerWrapperLocation().ytop)
                 this.locateInnerWrapper($sidebar, $innerWrapper);
-                $innerWrapper.css({'position':'fixed'}); 
+                $innerWrapper.css({'position':'fixed'});
+
             }
             if (!settings.fixedBurger && settings.fixedSidebar) {
-                this.resetInnerWrapper();
+                this.offsetWrappers($innerWrapper, 'relative');
                 this.locateInnerWrapper($sidebar, $innerWrapper);
                 $innerWrapper.css({'position':'relative'});
             }
@@ -292,12 +305,10 @@
 
         if (_sidebarLocation === "right" && this.getOpenMenuStatus()) {
             //right and open
-            console.log($innerWrapper)
             $innerWrapper.css({right:settings.moveInnerWrapperX, top: settings.moveInnerWrapperY+this.getInnerWrapperLocation().ytop});
 
             } else if (_sidebarLocation === "right") {
                 //right and close               
-                console.log($innerWrapper)
                 $innerWrapper.css({right:-$sidebar.width()+settings.moveInnerWrapperX, top: settings.moveInnerWrapperY+this.getInnerWrapperLocation().ytop});
             } 
 
@@ -348,6 +359,14 @@
      /* ---------------------------------------------
         Animate
         --------------------------------------------- */
+    MobileMenu.prototype.isRolled = function() {
+        console.log('isRolled')
+        var _this = this;
+        $(window).scroll(function() {
+            _this.setIsScrolled(true);
+        })
+    }
+
     MobileMenu.prototype.resizeWindow = function($burger, $sidebar, $innerWrapper, $overlay) {
         var _this = this;
 
@@ -355,13 +374,6 @@
             _this.locateInnerWrapper($sidebar, $innerWrapper);
             _this.configDisplay($burger, $sidebar, $overlay, $innerWrapper);            
         });
-
-        //innerWrapper moves along browser window when scrolling takes place; hence, it behaves as fixed
-        // if (settings.fixedSidebar) {
-        //     $(window).scroll(function() {
-        //         _this.locateInnerWrapper($sidebar, $innerWrapper);
-        //     });
-        // }
     }
 
     MobileMenu.prototype.animate = function($burger, $sidebar, $innerWrapper, $overlay) {
