@@ -15,8 +15,8 @@
         burgerSpanWidth: 30,
         burgerSpacing: 4,
         burgerColor: '#777',
-        burgerVisible: true,
-        fixedBurger: true,
+        burgerVisible: false,
+        fixedBurger: false,
         fixedSidebar: true,
         burgerClass: 'burger',
         sidebarClass: 'sidebar',
@@ -62,6 +62,12 @@
         var isScrolled = false;
         this.setIsScrolled(isScrolled);
 
+        var offsetChangeFromResizeWindow = 0;
+        this.setOffsetChangeFromResizeWindow(offsetChangeFromResizeWindow);
+
+        var checkIfJustChangedTofMobile = false;
+        this.setCheckIfJustChangedToMobile(checkIfJustChangedTofMobile);
+
         var $burger = this.createBurger();
         var $sidebar = this.createSidebar();
         
@@ -70,11 +76,12 @@
         var $overlay = this.createOverlay();
 
         this.setInitialInnerWrapperLocation($innerWrapper);
+        this.setDocumentHeight($(document).height());
         this.setPositionPropertyInnerWrapper($sidebar, $innerWrapper, 'init');
         this.positionBurger($burger, $sidebar);
         this.positionSidebar($burger, $sidebar);
         
-        this.configDisplay($burger, $sidebar);
+        this.configDisplay($burger, $sidebar, $innerWrapper, $overlay);
         this.isRolled();
         this.resizeWindow($burger, $sidebar, $innerWrapper, $overlay);
         
@@ -82,61 +89,84 @@
     }
 
     /* ---------------------------------------------
-        Getter and Setter for OpenMenuStatus
+       Getters and Setters         
        --------------------------------------------- */
-    MobileMenu.prototype.getOpenMenuStatus = function() {
-        return this.openMenuStatus;
-    }
 
-    MobileMenu.prototype.setOpenMenuStatus = function(openMenuStatus) {
-        this.openMenuStatus = openMenuStatus;
-    }
+        /* ---------------------------------------------
+            Getter and Setter for OpenMenuStatus
+           --------------------------------------------- */
+        MobileMenu.prototype.getOpenMenuStatus = function() {
+            return this.openMenuStatus;
+        }
 
-     /* ---------------------------------------------
-        Getter and Setter for IsScrolled
-       --------------------------------------------- */
-    MobileMenu.prototype.getIsScrolled = function() {
-        return this.isScrolled;
-    }
+        MobileMenu.prototype.setOpenMenuStatus = function(openMenuStatus) {
+            this.openMenuStatus = openMenuStatus;
+        }
 
-    MobileMenu.prototype.setIsScrolled = function(isScrolled) {
-        this.isScrolled = isScrolled;
-    }
+        /* ---------------------------------------------
+            Getter and Setter for DocumentHeight
+           --------------------------------------------- */
+        MobileMenu.prototype.getDocumentHeight = function() {
+            return this.documentHeight
+        }
 
-    /* ---------------------------------------------
-        Getter and Setter for innerWrapperLocation
-       --------------------------------------------- */
-    MobileMenu.prototype.getInnerWrapperLocation = function() {
-        return this.innerWrapperLocation;
-    }
+        MobileMenu.prototype.setDocumentHeight = function(documentHeight) {
+            this.documentHeight = documentHeight;
+        }
 
-    MobileMenu.prototype.setInnerWrapperLocation = function(innerWrapperLocation) {
-        this.innerWrapperLocation = innerWrapperLocation;
-    }
+         /* ---------------------------------------------
+            Getter and Setter for IsScrolled
+           --------------------------------------------- */
+        MobileMenu.prototype.getIsScrolled = function() {
+            return this.isScrolled;
+        }
 
-    /* ---------------------------------------------
-        Getter and Setter for Initial innerWrapperLocation
-       --------------------------------------------- */
-    MobileMenu.prototype.getInitialInnerWrapperLocation = function() {
-        return this.initialInnerWrapperLocation;
-    }
+        MobileMenu.prototype.setIsScrolled = function(isScrolled) {
+            this.isScrolled = isScrolled;
+        }
 
-    MobileMenu.prototype.setInitialInnerWrapperLocation = function($innerWrapper) {
-        //set one time
-        var initialInnerWrapperLocation;
-        initialInnerWrapperLocation = {
-                xleft : 0,
-                xright : 0,
-                ybottom : 0,
-                ytop : $innerWrapper.offset().top        
-            }          
-        this.initialInnerWrapperLocation = initialInnerWrapperLocation;
-    }
+         /* ---------------------------------------------
+            Getter and Setter for IsResizedWindow
+           --------------------------------------------- */
+        MobileMenu.prototype.getOffsetChangeFromResizeWindow = function() {
+            return this.offsetChangeDueResizeWindow;
+        }
+
+        MobileMenu.prototype.setOffsetChangeFromResizeWindow = function(offsetChangeDueResizeWindow) {
+            this.offsetChangeDueResizeWindow = offsetChangeDueResizeWindow;
+        }
+
+        /* ---------------------------------------------
+            Getter and Setter for InnerWrapperLocation
+           --------------------------------------------- */
+        MobileMenu.prototype.getInnerWrapperLocation = function() {
+            return this.innerWrapperLocation;
+        }
+
+        MobileMenu.prototype.setInnerWrapperLocation = function(innerWrapperLocation) {
+            this.innerWrapperLocation = innerWrapperLocation;
+        }
+
+        /* ---------------------------------------------
+            Getter and Setter for InitialInnerWrapperLocation
+           --------------------------------------------- */
+        MobileMenu.prototype.getInitialInnerWrapperLocation = function() {
+            return this.initialInnerWrapperLocation;
+        }
+
+        MobileMenu.prototype.setInitialInnerWrapperLocation = function($innerWrapper) {
+            //set one time
+            var initialInnerWrapperLocation;
+            initialInnerWrapperLocation = {
+                    ytop : $innerWrapper.offset().top        
+                }          
+            this.initialInnerWrapperLocation = initialInnerWrapperLocation;
+        }
 
     /* ---------------------------------------------
         Checks if window is in Mobile Mode
        --------------------------------------------- */
-     MobileMenu.prototype.isMobile = function() {
+    MobileMenu.prototype.isMobile = function() {
         return ($(window).width()<settings.windowWidth);
     }
 
@@ -226,47 +256,63 @@
             'position':'relative',
             'z-index':'9999'
         });
-    
+
         return $innerWrapper;
     }
+    
+    //offsetChangeFromResizeWindow determines the adjustment necessary in the innerWrapper's y location since the background of the website 
+        //changes behind the burger and sidebar as the window is resized.  This adjustment prevents the sidebar and burger from jumping up or down
+        //after the menu slides in or out.
+    MobileMenu.prototype.offsetChangeFromResizeWindow = function($innerWrapper) {       
+        //as the window is resized with menu open, header's change in y with respect to its original position 
+        this.setOffsetChangeFromResizeWindow($(".header").offset().top - this.getInitialInnerWrapperLocation().ytop);             
+    }
 
+    //offsetWrappers determines the ytop-location of the innerWrapper
+        //Note: it gets called at the start of the program and when the menu slides out and slides in
+        //Note: it calls getOffsetChangeFromResizeWindow
     MobileMenu.prototype.offsetWrappers = function($innerWrapper, type) {
         var innerWrapperLocation;
-        if (type == 'reset') {
-            console.log('reset')
+
+        if (type == 'reset-relative') {
             innerWrapperLocation = {
-                xleft : 0,
-                xright : 0,
-                ybottom : 0,
                 ytop : 0            
             }
         }
-        if (type == 'viewable') {
+        if (type == 'reset-fixed') {
             innerWrapperLocation = {
-                ytop : $innerWrapper.offset().top - $(window).scrollTop()
+                ytop : $(".header").offset().top           
             }
         }
-        if (type == 'relative') {            
+        if (type == 'relative') {
             innerWrapperLocation = {
-                ytop : $innerWrapper.offset().top - this.getInitialInnerWrapperLocation().ytop
+                //current position relative to innerWrapper's initial position minus offsetChangeFromRsizeWindow
+                ytop : ($innerWrapper.offset().top - this.getInitialInnerWrapperLocation().ytop) - this.getOffsetChangeFromResizeWindow()
+            }
+        }
+        if (type == 'fixed') {
+            innerWrapperLocation = {
+                //current innerWrapper position from top of browser window
+                ytop : $innerWrapper.offset().top - $(window).scrollTop()
             }
         }
         this.setInnerWrapperLocation(innerWrapperLocation);
     }
 
+    //setPositionPropertryInnerWrapper sets the innerWrapper as 'fixed' or 'relative' depending on the user's inputs
+        //Note: it calls offsetWrappers in conjunction with its 'fixed' or 'relative' position property
+        //Note: initial state of innerWrapper is relative, or not Fixed
     MobileMenu.prototype.setPositionPropertyInnerWrapper = function($sidebar, $innerWrapper, condition) {
-        //initial state of innerWrapper is relative, or not Fixed
+        
         if (condition == "init") {
-            //innerWrapper changes to fixed if fixedBurger in its initial condition
-            //otherwise, stays relative
+            //innerWrapper changes to fixed if fixedBurger is true; otherwise, stays relative
+                //Note: if fixedSidebar is also true, innerWrapper will always remain fixed
             if (settings.fixedBurger) {
-                console.log('fixedBurger')
-                this.offsetWrappers($innerWrapper, 'window');
+                this.offsetWrappers($innerWrapper, 'reset-fixed');
                 this.locateInnerWrapper($sidebar, $innerWrapper);
                 $innerWrapper.css({'position':'fixed'});
             } else {
-                console.log('notfixedBurger')
-                this.offsetWrappers($innerWrapper, 'reset');
+                this.offsetWrappers($innerWrapper, 'reset-relative');
                 this.locateInnerWrapper($sidebar, $innerWrapper);   
             }
         }
@@ -274,21 +320,19 @@
             if (settings.fixedBurger && !settings.fixedSidebar) {
                 this.offsetWrappers($innerWrapper, 'relative');
                 this.locateInnerWrapper($sidebar, $innerWrapper);
-                $innerWrapper.css({'position':'relative'}); 
+                $innerWrapper.css({'position':'relative'});
             }
             if (!settings.fixedBurger && settings.fixedSidebar) {
-                this.offsetWrappers($innerWrapper, 'viewable');
+                this.offsetWrappers($innerWrapper, 'fixed');
                 this.locateInnerWrapper($sidebar, $innerWrapper);
                 $innerWrapper.css({'position':'fixed'});
             }
         }
         if (condition == 'slideIn') {
             if (settings.fixedBurger && !settings.fixedSidebar) {
-                this.offsetWrappers($innerWrapper, 'viewable');
-                console.log(this.getInnerWrapperLocation().ytop)
+                this.offsetWrappers($innerWrapper, 'fixed');
                 this.locateInnerWrapper($sidebar, $innerWrapper);
                 $innerWrapper.css({'position':'fixed'});
-
             }
             if (!settings.fixedBurger && settings.fixedSidebar) {
                 this.offsetWrappers($innerWrapper, 'relative');
@@ -298,14 +342,14 @@
         }
     }
 
-      MobileMenu.prototype.locateInnerWrapper = function($sidebar, $innerWrapper) {
+    //locateInnerWrapper sets the innerWrapper at its location determined by the previous three functions
+    MobileMenu.prototype.locateInnerWrapper = function($sidebar, $innerWrapper) {
         var _sidebarLocation = settings.sidebarLocation;
-
         console.log(this.getInnerWrapperLocation().ytop);
 
         if (_sidebarLocation === "right" && this.getOpenMenuStatus()) {
             //right and open
-            $innerWrapper.css({right:settings.moveInnerWrapperX, top: settings.moveInnerWrapperY+this.getInnerWrapperLocation().ytop});
+            $innerWrapper.css({top: settings.moveInnerWrapperY+this.getInnerWrapperLocation().ytop});
 
             } else if (_sidebarLocation === "right") {
                 //right and close               
@@ -314,7 +358,7 @@
 
         if (_sidebarLocation === "left" && this.getOpenMenuStatus()) {
             //left and open
-            $innerWrapper.css({left:settings.moveInnerWrapperX, top: settings.moveInnerWrapperY+this.getInnerWrapperLocation().ytop});
+            $innerWrapper.css({top: settings.moveInnerWrapperY+this.getInnerWrapperLocation().ytop});
             
             } else if (_sidebarLocation === "left") {
                 //left and close
@@ -332,35 +376,61 @@
         return $overlay;
     }
 
+    /* ---------------------------------------------
+            Getter and Setter for CheckIfJustChangedTofMobile
+       --------------------------------------------- */
+
+    MobileMenu.prototype.getCheckIfJustChangedToMobile = function() {
+        return this.checkIfJustChangedToMobile;
+    }
+
+    MobileMenu.prototype.setCheckIfJustChangedToMobile = function(checkIfJustChangedToMobile) {
+        this.checkIfJustChangedToMobile = checkIfJustChangedToMobile;
+    }
+
    /* ---------------------------------------------
         Display
       --------------------------------------------- */
-    MobileMenu.prototype.configDisplay = function($burger, $sidebar, $overlay) {
+    MobileMenu.prototype.configDisplay = function($burger, $sidebar, $innerWrapper, $overlay) {
         if (this.isMobile() && this.getOpenMenuStatus()) {
             $sidebar.show();
             $this.hide();
+            
             } else if (this.isMobile()) {
                 $sidebar.hide(); 
                 $this.hide();
                 $burger.show();
+    
+                //check to see if screen has just gone from desktop to mobile
+                if (this.getCheckIfJustChangedToMobile()) {
+                    this.setPositionPropertyInnerWrapper($sidebar, $innerWrapper, 'init');
+                    this.setCheckIfJustChangedToMobile(false);
+                }
+            
             } else if (this.getOpenMenuStatus()) {
                 $sidebar.hide();
                 $this.show();
                 $burger.hide();
+                this.setCheckIfJustChangedToMobile(true);
+                
+                //Note: with the menu open before going to desktop view, 'slideIn' must be run on the innerWrapper
+                this.setPositionPropertyInnerWrapper($sidebar, $innerWrapper, 'slideIn');
+
                 this.setOpenMenuStatus(false);
                 $overlay.removeClass(settings.activeOverlayClass);
-            } else {
+           
+           } else {
                 $sidebar.hide();
                 $this.show();
                 $burger.hide();
+                this.setCheckIfJustChangedToMobile(true);       
             }
     }
 
-     /* ---------------------------------------------
+    /* ---------------------------------------------
         Animate
-        --------------------------------------------- */
+       --------------------------------------------- */
     MobileMenu.prototype.isRolled = function() {
-        console.log('isRolled')
         var _this = this;
         $(window).scroll(function() {
             _this.setIsScrolled(true);
@@ -372,7 +442,8 @@
 
         $(window).resize(function() {
             _this.locateInnerWrapper($sidebar, $innerWrapper);
-            _this.configDisplay($burger, $sidebar, $overlay, $innerWrapper);            
+            _this.configDisplay($burger, $sidebar, $innerWrapper, $overlay);
+            _this.offsetChangeFromResizeWindow($innerWrapper);
         });
     }
 
