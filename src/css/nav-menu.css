@@ -8,16 +8,19 @@
 
 body, nav, ul, li, p {
   padding: 0px;
-  margin: 0px;
+  margin: 0px; 
+}
+
+.header {
+  margin-bottom: 20px;
 }
 
 .content {
-  float: left;
-  margin-bottom: 30px;
+  float: right;
 }
 
 .nav-menu {
-  float: right;
+  float: left;
 }
 
 .nav-menu li {
@@ -42,13 +45,6 @@ body, nav, ul, li, p {
   z-index: 9998;
   height: 100%;
   width: 100%;
-}
-
-/* ---------------------------------------------
-		Hack (required to work on cell phones)
-   --------------------------------------------- */
-html, body {
-	overflow-x: hidden;
 }
 
 /* ---------------------------------------------

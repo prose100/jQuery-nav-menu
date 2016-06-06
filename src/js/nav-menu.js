@@ -77,6 +77,8 @@
         var $innerWrapper = this.createWrappers($burger, $sidebar);
         var $overlay = this.createOverlay();
 
+        this.headerPMLeftAndPMRight();
+
         this.setInitialInnerWrapperLocation($innerWrapper);
         this.setDocumentHeight($(document).height());
         this.setPositionPropertyInnerWrapper($sidebar, $innerWrapper, 'init');
@@ -334,15 +336,14 @@
     MobileMenu.prototype.setPositionPropertyInnerWrapper = function($sidebar, $innerWrapper, condition) {
         
         if (condition == "init") {
-            //innerWrapper changes to fixed if fixedBurger is true; otherwise, stays relative
-                //Note: if fixedSidebar is also true, innerWrapper will always remain fixed
             if (settings.fixedBurger) {
                 this.offsetWrappers($innerWrapper, 'reset-fixed');
                 this.locateInnerWrapper($sidebar, $innerWrapper);
                 $innerWrapper.css({'position':'fixed'});
             } else {
                 this.offsetWrappers($innerWrapper, 'reset-relative');
-                this.locateInnerWrapper($sidebar, $innerWrapper);   
+                this.locateInnerWrapper($sidebar, $innerWrapper);
+                $innerWrapper.css({'position':'relative'});   
             }
         }
         if (condition == 'slideOut') {
@@ -405,6 +406,34 @@
         return $overlay;
     }
 
+    /* ---------------------------------------------
+        Header
+       --------------------------------------------- */
+
+    MobileMenu.prototype.headerPMLeftAndPMRight = function() {
+        var _this = this;
+        var sumLeft = 0;
+        var sumRight = 0;
+        var pl = 0;
+        var ml = 0;
+        var pr = 0;
+        var mr = 0;
+
+        $(".header").parents().map(function() {
+            pl = $(this).css('padding-left');
+            ml = $(this).css('margin-left');
+
+            pr = $(this).css('padding-right');
+            mr = $(this).css('margin-right');
+
+            sumLeft += parseInt(pl, 10) + parseInt(ml, 10);
+            sumRight += parseInt(pr, 10) + parseInt(mr, 10);
+        });
+
+        $(".header").css({'margin-left': -(sumLeft)});
+        $(".header").css({'margin-right': -(sumRight)});
+    }
+
    /* ---------------------------------------------
         Display
       --------------------------------------------- */
@@ -456,11 +485,14 @@
             _this.configDisplay($burger, $sidebar, $innerWrapper, $overlay);
             _this.offsetChangeFromResizeWindow($innerWrapper);
 
+            //this if statement interacts with scrollWindow function
             if (_this.getResize()) {
-                 _this.setResize(false);
+                _this.setResize(false);
                 _this.setScroll(true); 
             }
+
             _this.offsetWrappers($innerWrapper, 'relative');
+            //change innerWrapper to relative (if not already)
             $innerWrapper.css({'position':'relative'});                
         });
     }
