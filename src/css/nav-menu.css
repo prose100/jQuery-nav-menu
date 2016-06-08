@@ -11,16 +11,8 @@ body, nav, ul, li, p {
   margin: 0px; 
 }
 
-.header {
-  margin-bottom: 20px;
-}
-
-.content {
-  float: right;
-}
-
 .nav-menu {
-  float: left;
+  display: none;
 }
 
 .nav-menu li {
@@ -37,21 +29,14 @@ body, nav, ul, li, p {
   color: #fff;
 }
 
-/* ---------------------------------------------
-    Required (do not Change)
-   --------------------------------------------- */
+/* -------------------------------------------------------------------
+    .activeOverlay is overlay that appears when the sidebar is visible
+   ------------------------------------------------------------------- */
 .activeOverlay {
   position: fixed;
+  background-color: #999;
+  opacity: 0.4;
   z-index: 9998;
   height: 100%;
   width: 100%;
-}
-
-/* ---------------------------------------------
-      Helper (clearfix)
-   --------------------------------------------- */
-.clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
 }
