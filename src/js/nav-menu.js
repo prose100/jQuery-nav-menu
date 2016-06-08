@@ -71,12 +71,6 @@
         var scroll = true;
         this.setScroll(scroll);
 
-        var slide = true;
-        this.setSlidIn(slide);
-
-        slide = false;
-        this.setSlidOut(slide);
-
         var $burger = this.createBurger();
         var $sidebar = this.createSidebar();
         
@@ -85,6 +79,7 @@
         var $overlay = this.createOverlay();
 
         this.overallWrapperPMLeftAndPMRight($wrappers.overallWrapper);
+        this.setProperties();
 
         this.setInitialOuterWrapperLocation($wrappers.outerWrapper);
         this.setDocumentHeight($(document).height());
@@ -208,6 +203,15 @@
     }
 
     /* ---------------------------------------------
+        Properties
+       --------------------------------------------- */
+    MobileMenu.prototype.setProperties = function() {
+        $('body').css({
+            'overflow-x':'hidden'
+        })
+    }
+
+    /* ---------------------------------------------
         Burger 
        --------------------------------------------- */
     MobileMenu.prototype.createBurger = function() {
@@ -308,8 +312,15 @@
             'display':'inline-block',
             'height':$burger.height(),
             'z-index':'9999',
-            'position':'relative'
+            'position':'relative',
         })
+
+        //burger shows up on the right side of the browser window
+        if (settings.sidebarLocation == 'right') {
+            $overallWrapper.css({
+                'left':$(window).width()
+            })
+        }
 
         $wrappers = {
             innerWrapper : $innerWrapper,
@@ -547,6 +558,12 @@
             $outerWrapper.css({'position':'relative'});
             _this.locateOuterWrapper($sidebar, $outerWrapper);
             _this.configDisplay($burger, $sidebar, $innerWrapper, $outerWrapper, $overallWrapper, $overlay);
+
+            if (settings.sidebarLocation == 'right') {
+                $overallWrapper.css({
+                    'left':$(window).width()
+                })
+            }
             
             //this if statement interacts with scrollWindow function
             if (_this.getResize()) {
