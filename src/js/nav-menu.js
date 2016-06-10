@@ -583,7 +583,6 @@
             if (_this.getScroll()) {
                 if (_this.getOpenMenuStatus()) {
                     _this.setPositionPropertyOuterWrapper($sidebar, $outerWrapper, $overallWrapper, 'slideOut');
-                    console.log('scoll, slideOut')
                 }
                 else {
                     _this.setPositionPropertyOuterWrapper($sidebar, $outerWrapper, $overallWrapper, 'slideIn');

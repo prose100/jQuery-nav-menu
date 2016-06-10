@@ -2,49 +2,67 @@
 
 The jQuery-Nav-Menu Plugin provides a slide-in navigation menu during a mobile state.
 
+##[Useful jQuery Navigation Menu Plugin](http://www.paultrose.com/blogJan16.html)
+
 ## Getting Started
 
 [Downloading](https://github.com/prose100/jQuery-nav-menu/zipball/master) or Forking this repository
 
-### Including it on your page
+## Usage Instructions
 
-Here is a basic implementation. Include the shown link, HTML, and scripts.  Call the function as shown.
-The properties shown are the defaults.
+####Include the CSS & JS
+nav-menu.css can be modified to fit a website design
 
-```html
-//Initializes position and style of nav-menu
-<link href="css/nav-menu.css" rel="stylesheet">
+    <link href="css/nav-menu.css">
+    <script src="js/nav-menu.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/
+                 jquery/2.1.4/jquery.min.js"></script>
 
-<ul class="nav-menu">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Contact</a></li>
-</ul>
+####Menu Markup
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="js/nav-menu.js"></script>
-<script>
-$(function() {
-    $(".nav-menu").mobilemenu({
-      	windowWidth: 600,
-        slideDuration: 500,
-        sidebarLocation: 'right',
-        slideDistance: 70,
-        moveBurgerX: 0,
-        moveBurgerY: 0,
-        moveSidebarX: 0,
-        moveSidebarY: 0,
-        burgerSpanHeight: 5,
-        burgerSpanWidth: 30,
-        burgerSpacing: 4,
-        burgerColor: "#777",
-        burgerClass: 'burger',
-        sidebarClass: 'sidebar'
-    });
+    <ul class="nav-menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+
+####Initialize
+
+    <script>
+        $(function() {
+            $(".nav-menu").mobilemenu({});
+        });
+    </script>
+
+## Default `options`
+
+There are some customizable options in this plugin using key : value pairs. These are the defaults. 
+Visit [Useful jQuery Navigation Menu Plugin](http://www.paultrose.com/blogJan16.html) for description of these properties.
+
+```
+$(".nav-menu").mobilemenu({
+    windowWidth: 600,
+    slideDuration: 500,
+    sidebarLocation: 'right',
+    slideDistance: 70,
+    moveBurgerX: 0,
+    moveBurgerY: 0,
+    moveSidebarX: 0,
+    moveSidebarY: 0,
+    burgerSpanHeight: 5,
+    burgerSpanWidth: 30,
+    burgerSpanSpacing: 4,
+    burgerColor: '#777',
+    burgerVisible: false,
+    fixedBurger: false,
+    fixedSidebar: false,
+    burgerClass: 'burger',
+    sidebarClass: 'sidebar',
+    activeOverlayClass: 'activeOverlay'
 });
-</script>
+
 ```
  
-## Getting more details
+## See some examples
 
-Visit [paultrose.com](http://www.paultrose.com/blogJan16.html) for more details about this plugin.
+Visit [jQuery Navigation Menu Plugin](http://www.paultrose.com/blogJan16.html) for more details about this plugin.

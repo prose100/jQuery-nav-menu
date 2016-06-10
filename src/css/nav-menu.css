@@ -30,7 +30,8 @@ body, nav, ul, li, p {
 }
 
 /* -------------------------------------------------------------------
-    .activeOverlay is overlay that appears when the sidebar is visible
+    .activeOverlay is overlay that appears when the sidebar is visible.
+    Assign a background-color with an opacity if you wish
    ------------------------------------------------------------------- */
 .activeOverlay {
   position: fixed;
