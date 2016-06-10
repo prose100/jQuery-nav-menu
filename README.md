@@ -1,8 +1,6 @@
-# jQuery-Nav-Menu Plugin
+#[jQuery-Nav-Menu Plugin](http://www.paultrose.com/blogJan16.html)
 
 The jQuery-Nav-Menu Plugin provides a slide-in navigation menu during a mobile state.
-
-##[Useful jQuery Navigation Menu Plugin](http://www.paultrose.com/blogJan16.html)
 
 ## Getting Started
 
@@ -37,7 +35,7 @@ nav-menu.css can be modified to fit a website design
 ## Default `options`
 
 There are some customizable options in this plugin using key : value pairs. These are the defaults. 
-Visit [Useful jQuery Navigation Menu Plugin](http://www.paultrose.com/blogJan16.html) for description of these properties.
+Visit [jQuery-Nav-Menu Plugin](http://www.paultrose.com/blogJan16.html) for description of these properties.
 
 ```
 $(".nav-menu").mobilemenu({
@@ -65,4 +63,4 @@ $(".nav-menu").mobilemenu({
  
 ## See some examples
 
-Visit [jQuery Navigation Menu Plugin](http://www.paultrose.com/blogJan16.html) for more details about this plugin.
+Visit [jQuery-Nav-Menu Plugin](http://www.paultrose.com/blogJan16.html) for more details about this plugin.
