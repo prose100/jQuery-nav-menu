@@ -530,6 +530,7 @@
                 if (this.getCheckIfJustChangedToMobile()) {
                     this.setPositionPropertyOuterWrapper($sidebar, $outerWrapper, $overallWrapper, 'init');
                     this.setCheckIfJustChangedToMobile(false);
+                    this.overallWrapperPMLeftAndPMRight($overallWrapper);
                 }
             
             } else if (this.getOpenMenuStatus()) {
